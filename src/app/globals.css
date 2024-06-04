@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.custom-nav-link {
+    @apply text-white text-center text-xl bg-teal-500 my-2 mx-2 py-2 px-4 rounded hover:bg-teal-700;
+}
