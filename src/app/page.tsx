@@ -1,17 +1,8 @@
 import Image from "next/image";
 import DropDM from "@/components/DropDM"
+import { getCategories } from "@/lib/fetchUtils";
 
-async function getCategories()  {
-  const res = await fetch('https://api.chucknorris.io/jokes/categories');
-  
-  if(res.ok){
-    const data = await res.json();
-    return data
-  }else{
-    throw new Error("Something went wrong while getting the categories")
-  }
 
-} 
 
 export default async function Home() {
   const data = await getCategories()
