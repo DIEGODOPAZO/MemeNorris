@@ -15,7 +15,6 @@ export default function DropDM({data, setSel}) {
     setSel(selKeys);
   }
 
-console.log(data)
   return (
     <Dropdown>
       <div className="flex flex-row justify-center text-white">

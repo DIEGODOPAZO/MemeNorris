@@ -8,5 +8,5 @@
 }
 
 .custom-drop-item{
-    @apply py-1 text-xl capitalize font-semibold;
+    @apply cursor-pointer text-xl capitalize font-semibold;
 }

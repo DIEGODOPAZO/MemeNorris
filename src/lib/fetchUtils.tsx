@@ -19,12 +19,15 @@ export async function callApi(url:string, isJoke:boolean){
 
 }
 
-export async function getJoke(categorie:String){
+export async function getJoke(categorie:string){
     var url = '';
-    if(categorie === "All"){
+    const cat = Array.from(categorie);
+    if(cat[0] === "All"){
          url = 'https://api.chucknorris.io/jokes/random';
     }else{
-         url = 'https://api.chucknorris.io/jokes/random?category=' + categorie;
+        url = `https://api.chucknorris.io/jokes/random?category=${cat[0]}`;
+        console.log(url);
+        console.log(cat[0])
     }
 
     return callApi(url, true);

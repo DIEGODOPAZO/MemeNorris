@@ -31,9 +31,9 @@ export default function Home() {
       </div>
     </div>
      <DropDM data={categories} setSel={setJokeCat}/>
-    <div>
-      <p>{joke?.value}</p>
-      <button onClick={() => {setCountClick(countClicks => countClicks + 1)}}>New Joke</button>
+    <div className="flex flex-col text-white text-3xl text-semibold">
+      <p className="ml-auto mr-auto px-4">{joke?.value}</p>
+      <button onClick={() => {setCountClick(countClicks => countClicks + 1)}} className="bg-teal-500 hover:bg-teal-700 rounded-lg m-auto p-4 my-6 max-w-30">New Joke</button>
     </div>
     </div>
   );
