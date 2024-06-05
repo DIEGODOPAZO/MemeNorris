@@ -1,14 +1,30 @@
 import Image from "next/image";
+import DropDM from "@/components/DropDM"
 
+async function getCategories()  {
+  const res = await fetch('https://api.chucknorris.io/jokes/categories');
+  
+  if(res.ok){
+    const data = await res.json();
+    return data
+  }else{
+    throw new Error("Something went wrong while getting the categories")
+  }
 
-export default function Home() {
+} 
+
+export default async function Home() {
+  const data = await getCategories()
   return (
-    <div className="flex flex-col items-center justify-center text-white">
+    <div>
+      <div className="flex flex-col items-center justify-center text-white">
       <h1 className="text-6xl text-center font-bold mt-8">MemeNorris</h1>
       <h1 className="text-2xl text-center my-4">Chuck Norris Memes</h1>
       <div>
       <Image src='/ChuckNorrisPhoto.png' alt='Chuck Norris Photo' width={300} height={300}/>
       </div>
+    </div>
+     <DropDM data={data}/>
     </div>
   );
 }
