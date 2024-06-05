@@ -2,13 +2,18 @@
 import React from "react";
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 
-export default function DropDM({data}) {
+export default function DropDM({data, setSel}) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set(["All"]));
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
+
+  function onChange(selKeys){
+    setSelectedKeys(new Set(selKeys));
+    setSel(selKeys);
+  }
 
 console.log(data)
   return (
@@ -30,7 +35,7 @@ console.log(data)
         disallowEmptySelection
         selectionMode="single"
         selectedKeys={selectedKeys}
-        onSelectionChange={setSelectedKeys}
+        onSelectionChange={onChange}
         className="bg-teal-200 rounded-lg p-3 text-slate-800"
       >
   <DropdownItem key="All" className="custom-drop-item">All</DropdownItem>
