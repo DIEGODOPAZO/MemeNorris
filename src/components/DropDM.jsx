@@ -1,14 +1,20 @@
 "use client"
 import React from "react";
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
+import {getCategories, useEffectAsync} from "@/lib/fetchUtils";
+import { useState } from "react";
 
-export default function DropDM({data, setSel}) {
+
+export default function DropDM({setSel}) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set(["All"]));
+  const [categories, setCategories] = useState([]);
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
+ 
+  useEffectAsync(async () => {var cat = await getCategories(); setCategories(cat)}, []);
 
   function onChange(selKeys){
     setSelectedKeys(new Set(selKeys));
@@ -38,7 +44,7 @@ export default function DropDM({data, setSel}) {
         className="bg-teal-200 rounded-lg p-3 text-slate-800"
       >
   <DropdownItem key="All" className="custom-drop-item">All</DropdownItem>
-  {data.map((category) => (
+  {categories.map((category) => (
           <DropdownItem key={category} className="custom-drop-item">{category}</DropdownItem>
         ))}
       </DropdownMenu>
