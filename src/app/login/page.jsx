@@ -1,22 +1,20 @@
-"use client"
-import { useState } from 'react';
-import { SupabaseClient, createClient } from '@supabase/supabase-js'
-
-
+"use client";
+import { useState } from "react";
+import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey= process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabase= createClient(supabaseUrl, supabaseAnonKey);
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    try { 
+    try {
       const { user, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -26,7 +24,7 @@ export default function LoginPage() {
         setError(error.message);
       } else {
         // Redireccionar a la página principal o a donde desees después de iniciar sesión
-        window.location.href = '/';
+        window.location.href = "/";
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error.message);
@@ -37,17 +35,17 @@ export default function LoginPage() {
   const handleGitHubLogin = async () => {
     try {
       const { user, error } = await supabase.auth.signInWithOAuth({
-        provider: 'github',
+        provider: "github",
         options: {
           redirectTo: `${location.origin}/auth/callback`,
-      }
+        },
       });
 
       if (error) {
         setError(error.message);
       } else {
         // Redireccionar a la página principal o a donde desees después de iniciar sesión
-        window.location.href = '/';
+        window.location.href = "/";
       }
     } catch (error) {
       console.error("Error al iniciar sesión con GitHub:", error.message);
@@ -56,15 +54,29 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h1>Iniciar sesión</h1>
+    <div className="flex flex-col items-center justify-center mx-auto">
+      <h1 className="text-white text-6xl my-7">LogIn</h1>
       {error && <p>{error}</p>}
       <form onSubmit={handleLogin}>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Correo electrónico" />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" />
-        <button type="submit">Iniciar sesión con correo</button>
+        <div className="flex flex-col my-2">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className="my-3 p-4 text-2xl"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            className="my-3 p-4 text-2xl"
+          />
+          <button type="submit" className="p-3 text-2xl mb-4 bg-teal-500 hover:bg-teal-700 rounded text-white">LogIn with email</button>
+        </div>
       </form>
-      <button onClick={handleGitHubLogin}>Iniciar sesión con GitHub</button>
+      <button onClick={handleGitHubLogin} className="p-3 text-2xl mb-4 bg-teal-500 hover:bg-teal-700 rounded text-white">LogIn with GitHub</button>
     </div>
   );
 }
