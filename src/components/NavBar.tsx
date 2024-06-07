@@ -19,12 +19,12 @@ export default function NavBar() {
 
       <div className="flex flex-row items-center mr-3">
         <div>
-          <Link className="custom-nav-link" href={"/"}>
-            Sing in
+          <Link className="custom-nav-link" href={"/signup"}>
+            Sign up
           </Link>
         </div>
         <div>
-          <Link className="custom-nav-link" href={"/"}>
+          <Link className="custom-nav-link" href={"/login"}>
             Log In
           </Link>
         </div>
