@@ -19,7 +19,7 @@ export default function NavBar( {session} : any) {
         </div>
 
         <div>
-          <Link className="custom-nav-link" href={"/"}>
+          <Link className="custom-nav-link" href={"/favourites"}>
             Favourites
           </Link>
         </div>
