@@ -14,13 +14,17 @@ export default function Home() {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
-    setSession(supabase.auth.getSession());
+    async function checkSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+      setSession(session);
+    }
 
     // Escuchar cambios en la sesión de autenticación
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session); // Actualizar el estado de la sesión cuando cambia la autenticación
     });
 
+    checkSession();
     // Limpieza al desmontar el componente
     return () => {
       authListener.subscription.unsubscribe();
@@ -38,7 +42,7 @@ export default function Home() {
       </div>
     </div>
      <DropDM setSel={setJokeCat}/>
-     <Joke jokeCat={jokeCat}/>
+     <Joke jokeCat={jokeCat} session={session}/>
     </div>
   );
 }
