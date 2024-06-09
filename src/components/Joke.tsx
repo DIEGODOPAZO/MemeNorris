@@ -13,7 +13,7 @@ export interface SessionProps {
   session: Session | null;
 }
 
-export default function Joke({ jokeCat }: JokeProps, { session } : SessionProps) {
+export default function Joke({ jokeCat, session }: JokeProps & SessionProps) {
 
   const [joke, setJoke] = useState<ChuckNorrisJoke>();
   const [countClicks, setCountClick] = useState(0);
@@ -41,8 +41,8 @@ export default function Joke({ jokeCat }: JokeProps, { session } : SessionProps)
         onClick={() => {
           setAddFav(true);
         }}
-        disabled={addFav}
-        className={`bg-teal-500 hover:bg-teal-700 rounded-lg mr-auto ml-3 p-4 my-6 max-w-30 ${addFav ? 'hidden' : ''}`}
+        disabled={addFav || !session}
+        className={`bg-teal-500 hover:bg-teal-700 rounded-lg mr-auto ml-3 p-4 my-6 max-w-30 ${addFav ? 'hidden' : ''} ${!session ? 'disabled:true bg-teal-100 text-slate-600 hover:bg-teal-100' : 'disabled:false'}`}
       >
         Add Favourites
       </button>
@@ -56,8 +56,10 @@ export default function Joke({ jokeCat }: JokeProps, { session } : SessionProps)
       >
         Remove Favourite
       </button>
-
         </div>}
+      <div className="flex flex-row mx-auto">
+      {!session ? <p>(LogIn to add favourites)</p> : <></>}
+      </div>
     </div>
   );
 }

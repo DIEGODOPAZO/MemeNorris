@@ -26,7 +26,7 @@ export default function NavBar( {session} : any) {
       </div>
 
       {
-        session ? <button className="custom-nav-link" onClick={handleLogOut}>Log Out</button> : 
+        session ? <button className="bg-red-500 text-white text-center text-xl my-2 mx-2 py-2 px-4 rounded hover:bg-red-700" onClick={handleLogOut}>Log Out</button> : 
         <div className="flex flex-row items-center mr-3">
         <div>
           <Link className="custom-nav-link" href={"/login"}>
