@@ -47,3 +47,16 @@ export async function getJoke(categorie: string) {
 
   return callApi(url, true);
 }
+
+
+export async function storeFavorite(userId: string | undefined, joke: ChuckNorrisJoke | undefined){
+ 
+}
+
+export async function deleteFavorite(userId: string | undefined, joke: ChuckNorrisJoke | undefined){
+  
+}
+
+export async function getFavorites(userId: string | undefined){
+
+}

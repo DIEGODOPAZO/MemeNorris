@@ -18,7 +18,7 @@ export default function Home() {
       const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
     }
-
+    
     // Escuchar cambios en la sesión de autenticación
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session); // Actualizar el estado de la sesión cuando cambia la autenticación

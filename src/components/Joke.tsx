@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react";
-import {getJoke, useEffectAsync} from "@/lib/fetchUtils";
+import {deleteFavorite, getJoke, storeFavorite, useEffectAsync} from "@/lib/fetchUtils";
 import React from 'react';
 import Loader from "@/components/Loader";
 import { Session } from "@supabase/supabase-js";
@@ -21,7 +21,20 @@ export default function Joke({ jokeCat, session }: JokeProps & SessionProps) {
   const [isDataLoading, setIsDataLoading] = useState(false);
 
   useEffectAsync(async () => {setIsDataLoading(true) ;var joke = await getJoke(jokeCat); setJoke(joke); setAddFav(false); setIsDataLoading(false)}, [countClicks]);
+  
+  async function addFavourite(){
+    setIsDataLoading(true);
+    await storeFavorite(session?.user.id, joke);
+    setAddFav(true);
+    setIsDataLoading(false);
+  }
 
+  async function removeFavourite(){
+    setIsDataLoading(true);
+    await deleteFavorite(session?.user.id, joke);
+    setAddFav(false);
+    setIsDataLoading(false);
+  }
 
   return (
     <div className="flex flex-col text-white text-3xl font-bold">
@@ -39,17 +52,17 @@ export default function Joke({ jokeCat, session }: JokeProps & SessionProps) {
 
       <button
         onClick={() => {
-          setAddFav(true);
+          addFavourite();
         }}
         disabled={addFav || !session}
-        className={`bg-teal-500 hover:bg-teal-700 rounded-lg mr-auto ml-3 p-4 my-6 max-w-30 ${addFav ? 'hidden' : ''} ${!session ? 'disabled:true bg-teal-100 text-slate-600 hover:bg-teal-100' : 'disabled:false'}`}
+        className={`bg-teal-500 hover:bg-teal-700 rounded-lg mr-auto ml-3 p-4 my-6 max-w-30 ${addFav ? 'hidden' : ''} ${!session ? 'disabled:true bg-slate-200 hover:bg-slate-200 text-slate-600' : 'disabled:false'}`}
       >
         Add Favourites
       </button>
 
       <button
         onClick={() => {
-          setAddFav(false);
+          removeFavourite();
         }}
         disabled={!addFav}
         className={`bg-red-500 hover:bg-red-700 rounded-lg mr-auto ml-3 p-4 my-6 max-w-30 ${!addFav ? 'hidden' : ''}`}
