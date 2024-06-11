@@ -56,7 +56,10 @@ export async function storeFavorite(
   const { error } = await supabase
     .from("UsersJokes")
     .insert([{ user_id: userId, joke: joke?.value, joke_id: joke?.id }]);
-
+  
+    if(error){
+      alert(error.message)
+    }
   return error;
 }
 
@@ -70,6 +73,9 @@ export async function deleteFavorite(
     .eq("user_id", userId)
     .eq("joke_id", joke?.id);
 
+    if(error){
+      alert(error.message)
+    }
   return error;
 }
 

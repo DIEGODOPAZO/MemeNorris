@@ -52,7 +52,7 @@ export default function Favourites(){
     return(
         <div>
             <NavBar session={session}/>
-            {err != null ? <div><h2> An error ocurred: </h2> <p>{err.details}</p></div> :
+            {err != null ? <div><h2> An error ocurred: </h2> <p>{err.message}</p></div> :
               jokes?.map((joke, index) => (<p>{joke.joke}</p>))
             }
         </div>
