@@ -7,3 +7,9 @@ interface ChuckNorrisJoke {
     url: string;
     value: string;
 }
+
+interface UserJokes{
+    user_id: string;
+    joke_id: string;
+    joke: string;
+}

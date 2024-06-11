@@ -24,15 +24,19 @@ export default function Joke({ jokeCat, session }: JokeProps & SessionProps) {
   
   async function addFavourite(){
     setIsDataLoading(true);
-    await storeFavorite(session?.user.id, joke);
-    setAddFav(true);
+    const error = await storeFavorite(session?.user.id, joke);
+    if(!error){
+      setAddFav(true);
+    }
     setIsDataLoading(false);
   }
 
   async function removeFavourite(){
     setIsDataLoading(true);
-    await deleteFavorite(session?.user.id, joke);
-    setAddFav(false);
+    const error = await deleteFavorite(session?.user.id, joke);
+    if(!error){
+      setAddFav(false);
+    }
     setIsDataLoading(false);
   }
 
@@ -51,9 +55,7 @@ export default function Joke({ jokeCat, session }: JokeProps & SessionProps) {
       </button>
 
       <button
-        onClick={() => {
-          addFavourite();
-        }}
+        onClick={addFavourite}
         disabled={addFav || !session}
         className={`bg-teal-500 hover:bg-teal-700 rounded-lg mr-auto ml-3 p-4 my-6 max-w-30 ${addFav ? 'hidden' : ''} ${!session ? 'disabled:true bg-slate-200 hover:bg-slate-200 text-slate-600' : 'disabled:false'}`}
       >
@@ -61,9 +63,7 @@ export default function Joke({ jokeCat, session }: JokeProps & SessionProps) {
       </button>
 
       <button
-        onClick={() => {
-          removeFavourite();
-        }}
+        onClick={removeFavourite}
         disabled={!addFav}
         className={`bg-red-500 hover:bg-red-700 rounded-lg mr-auto ml-3 p-4 my-6 max-w-30 ${!addFav ? 'hidden' : ''}`}
       >

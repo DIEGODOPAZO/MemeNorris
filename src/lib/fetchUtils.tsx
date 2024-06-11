@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { supabase } from "./supabase";
 
 export async function getCategories() {
   return callApi("https://api.chucknorris.io/jokes/categories", false);
@@ -8,15 +9,15 @@ export async function callApi(url: string, isJoke: boolean) {
   try {
     const res = await fetch(url);
     let data = [];
-    
+
     if (res.ok) {
       data = await res.json();
     } else {
       return [`An error ${res.status} ocurred`];
     }
-    
-    if(data.length == 0){
-        return["Unable to get the joke"];
+
+    if (data.length == 0) {
+      return ["Unable to get the joke"];
     }
 
     if (isJoke) {
@@ -48,15 +49,38 @@ export async function getJoke(categorie: string) {
   return callApi(url, true);
 }
 
+export async function storeFavorite(
+  userId: string | undefined,
+  joke: ChuckNorrisJoke | undefined
+) {
+  const { error } = await supabase
+    .from("UsersJokes")
+    .insert([{ user_id: userId, joke: joke?.value, joke_id: joke?.id }]);
 
-export async function storeFavorite(userId: string | undefined, joke: ChuckNorrisJoke | undefined){
- 
+  return error;
 }
 
-export async function deleteFavorite(userId: string | undefined, joke: ChuckNorrisJoke | undefined){
-  
+export async function deleteFavorite(
+  userId: string | undefined,
+  joke: ChuckNorrisJoke | undefined
+) {
+  const { error } = await supabase
+    .from("UsersJokes")
+    .delete()
+    .eq("user_id", userId)
+    .eq("joke_id", joke?.id);
+
+  return error;
 }
 
-export async function getFavorites(userId: string | undefined){
+export async function getFavorites(userId: string | undefined) {
+  const { data: UserJokes, error } = await supabase
+    .from("UsersJokes")
+    .select('joke, userd_id, joke_id').eq('user_id', userId)
 
+    if(error){
+      return error;
+    }else{
+      return UserJokes;
+    }
 }

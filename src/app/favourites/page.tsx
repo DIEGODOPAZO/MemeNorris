@@ -1,12 +1,15 @@
 "use client"
 import NavBar from "@/components/NavBar";
 import { supabase } from "@/lib/supabase";
+import { Session } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Favourites(){
-    const [session, setSession] = useState(null);
+    const [session, setSession] = useState<Session | null>(null);
     const router = useRouter();
+    const [error, setError] = useState(null);
+    const [jokes, setJokes] = useState<UserJokes>();
     
     useEffect(() => {
       async function checkSession() {
@@ -32,7 +35,10 @@ export default function Favourites(){
     };
       
     }, [router]);
-
+    
+    useEffect(() => {
+      
+    }, [])
 
     return(
         <div>
