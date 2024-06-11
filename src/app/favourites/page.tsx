@@ -1,15 +1,16 @@
 "use client"
 import NavBar from "@/components/NavBar";
+import { getFavorites, useEffectAsync } from "@/lib/fetchUtils";
 import { supabase } from "@/lib/supabase";
-import { Session } from "@supabase/supabase-js";
+import { PostgrestError, Session } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Favourites(){
     const [session, setSession] = useState<Session | null>(null);
     const router = useRouter();
-    const [error, setError] = useState(null);
-    const [jokes, setJokes] = useState<UserJokes>();
+    const [err, setError] = useState<PostgrestError | null>(null);
+    const [jokes, setJokes] = useState<UserJokes[] | null>([]);
     
     useEffect(() => {
       async function checkSession() {
@@ -36,14 +37,24 @@ export default function Favourites(){
       
     }, [router]);
     
-    useEffect(() => {
-      
-    }, [])
+    
+  async function getJokes(){
+    if (session?.user.id) {
+      const { error, UserJokes } = await getFavorites(session.user.id);
+      setError(error);
+      setJokes(UserJokes);
+      console.log(jokes);
+    }
+  }    
+
+   useEffectAsync(getJokes, [session]);
 
     return(
         <div>
             <NavBar session={session}/>
-            <p>Hola</p>
+            {err != null ? <div><h2> An error ocurred: </h2> <p>{err.details}</p></div> :
+              jokes?.map((joke, index) => (<p>{joke.joke}</p>))
+            }
         </div>
     )
 }

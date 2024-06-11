@@ -76,11 +76,7 @@ export async function deleteFavorite(
 export async function getFavorites(userId: string | undefined) {
   const { data: UserJokes, error } = await supabase
     .from("UsersJokes")
-    .select('joke, userd_id, joke_id').eq('user_id', userId)
+    .select('joke, user_id, joke_id').eq('user_id', userId);
 
-    if(error){
-      return error;
-    }else{
-      return UserJokes;
-    }
+    return {error, UserJokes};
 }

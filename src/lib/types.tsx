@@ -9,7 +9,7 @@ interface ChuckNorrisJoke {
 }
 
 interface UserJokes{
-    user_id: string;
-    joke_id: string;
-    joke: string;
+    user_id: any;
+    joke_id: any;
+    joke: any;
 }
