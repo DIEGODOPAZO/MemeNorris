@@ -34,9 +34,9 @@ export default function FavourtiteCard({joke, session, onRemove} : FavouriteCard
       }
 
     return(
-        <div className="bg-teal-350 my-5 p-5 font-semibold text-2xl flex flex-row items-center">
+        <div className="bg-teal-350 my-5 p-5 font-semibold text-2xl flex flex-row items-center shadow-lg">
             <br/>
-            <div className="ml-10 mr-auto">
+            <div className="ml-10 mr-auto text-black">
             {joke.joke}
             </div>
             <div>

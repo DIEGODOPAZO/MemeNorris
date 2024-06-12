@@ -1,5 +1,6 @@
 "use client";
 import FavourtiteCard from "@/components/FavouriteCard";
+import Loader from "@/components/Loader";
 import NavBar from "@/components/NavBar";
 import { getFavorites, useEffectAsync } from "@/lib/fetchUtils";
 import { supabase } from "@/lib/supabase";
@@ -12,7 +13,7 @@ export default function Favourites() {
   const router = useRouter();
   const [err, setError] = useState<PostgrestError | null>(null);
   const [jokes, setJokes] = useState<UserJokes[] | null>([]);
-  
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     async function checkSession() {
@@ -44,10 +45,11 @@ export default function Favourites() {
 
   async function getJokes() {
     if (session?.user.id) {
+      setIsFetching(true);
       const { error, UserJokes } = await getFavorites(session.user.id);
       setError(error);
       setJokes(UserJokes);
-      console.log(jokes);
+      setIsFetching(false);
     }
   }
 
@@ -58,14 +60,28 @@ export default function Favourites() {
 }
   return (
     <div>
-      <NavBar session={session} />
-      {err != null ? (
-        <div>
-          <h2> An error ocurred: </h2> <p>{err.message}</p>
-        </div>
-      ) : (
-        jokes?.map((joke, index) => <FavourtiteCard joke={joke} session={session} onRemove={handleRemoveJoke}/>)
-      )}
-    </div>
+    <NavBar session={session} />
+    {isFetching ? (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    ) : (
+      <>
+        {err != null ? (
+          <div>
+            <h2> An error occurred: </h2> <p>{err.message}</p>
+          </div>
+        ) : (
+          jokes?.map((joke, index) => (
+            <FavourtiteCard
+              joke={joke}
+              session={session}
+              onRemove={handleRemoveJoke}
+            />
+          ))
+        )}
+      </>
+    )}
+  </div>
   );
 }
