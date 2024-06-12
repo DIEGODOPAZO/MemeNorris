@@ -56,32 +56,36 @@ export default function Favourites() {
   useEffectAsync(getJokes, [session]);
 
   const handleRemoveJoke = (jokeId: string) => {
-    setJokes((prevJokes) => prevJokes?.filter(joke => joke.joke_id !== jokeId) || null);
-}
+    setJokes(
+      (prevJokes) =>
+        prevJokes?.filter((joke) => joke.joke_id !== jokeId) || null
+    );
+  };
   return (
     <div>
-    <NavBar session={session} />
-    {isFetching ? (
-      <div className="flex justify-center items-center h-screen">
-        <Loader />
-      </div>
-    ) : (
-      <>
-        {err != null ? (
-          <div>
-            <h2> An error occurred: </h2> <p>{err.message}</p>
-          </div>
-        ) : (
-          jokes?.map((joke, index) => (
-            <FavourtiteCard
-              joke={joke}
-              session={session}
-              onRemove={handleRemoveJoke}
-            />
-          ))
-        )}
-      </>
-    )}
-  </div>
+      <NavBar session={session} />
+      {isFetching ? (
+        <div className="flex justify-center items-center h-screen">
+          <Loader />
+        </div>
+      ) : (
+        <>
+          {err != null ? (
+            <div className="flex flex-col items-center justify-center h-screen font-semibold text-white">
+              <h2 className="text-3xl"> An error occurred: </h2>
+              <p className="text-lg">{err.message}</p>
+            </div>
+          ) : (
+            jokes?.map((joke, index) => (
+              <FavourtiteCard
+                joke={joke}
+                session={session}
+                onRemove={handleRemoveJoke}
+              />
+            ))
+          )}
+        </>
+      )}
+    </div>
   );
 }
