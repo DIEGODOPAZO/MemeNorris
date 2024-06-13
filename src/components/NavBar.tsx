@@ -10,7 +10,7 @@ export default function NavBar( {session} : any) {
 
 
   return (
-    <div className="bg-teal-400 w-full h-13 flex">
+    <div className="bg-teal-400 w-full h-15 flex">
       <div className="flex flex-row items-center mr-auto ml-3">
         <div>
           <Link className="custom-nav-link" href={"/"}>
