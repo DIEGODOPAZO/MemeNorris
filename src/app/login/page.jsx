@@ -34,7 +34,7 @@ export default function LoginPage() {
   }, [router]);
   return (
     <div className="bg-slate-950 min-h-screen flex flex-col items-center justify-center">
-      <div className="w-full max-w-md">
+      <div className="md:w-full md:max-w-md">
         <Auth
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}

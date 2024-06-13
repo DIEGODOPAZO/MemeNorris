@@ -41,7 +41,7 @@ export default function Joke({ jokeCat, session }: JokeProps & SessionProps) {
   }
 
   return (
-    <div className="flex flex-col text-white text-3xl font-bold">
+    <div className="flex flex-col text-white text-2xl md:text-3xl font-bold">
       <p className="ml-auto mr-auto px-20">{joke?.value || "No joke available due to a problem calling the API"}</p>
       {isDataLoading ? <Loader/> : <div className="flex flex-row">
 
