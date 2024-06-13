@@ -78,6 +78,7 @@ export default function Favourites() {
           ) : (
             jokes?.map((joke, index) => (
               <FavourtiteCard
+                key={index}
                 joke={joke}
                 session={session}
                 onRemove={handleRemoveJoke}

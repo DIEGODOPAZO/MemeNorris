@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "MemeNorris",
   description: "Chuch Norris memes",
+  icons: "icon.ico"
 };
 
 export default function RootLayout({
