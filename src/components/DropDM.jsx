@@ -31,7 +31,7 @@ export default function DropDM({setSel}) {
         <Button 
         onClick={handleDropdownClick}
         variant="bordered" 
-          className="bg-teal-600 hover:bg-teal-700 text-3xl p-3 rounded my-4 capitalize"
+          className="bg-teal-600 hover:bg-teal-700 text-3xl px-3 rounded my-4 capitalize"
         >
           {selectedValue}
         </Button>

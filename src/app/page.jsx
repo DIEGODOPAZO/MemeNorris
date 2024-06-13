@@ -35,10 +35,10 @@ export default function Home() {
     <div>
       <NavBar session={session}/>
       <div className="flex flex-col items-center justify-center text-white">
-      <h1 className=" text-5xl md:text-7xl text-center font-bold mt-8">MemeNorris</h1>
-      <h1 className="text-lg md:text-2xl text-center my-4">Chuck Norris Memes</h1>
+      <h1 className=" text-5xl md:text-5xl text-center font-bold mt-8">MemeNorris</h1>
+      <h1 className="text-lg md:text-xl text-center my-4">Chuck Norris Memes</h1>
       <div>
-      <Image src='/ChuckNorrisPhoto.png' alt='Chuck Norris Photo' width={300} height={300}/>
+      <Image src='/ChuckNorrisPhoto.png' alt='Chuck Norris Photo' width={250} height={250}/>
       </div>
     </div>
      <DropDM setSel={setJokeCat}/>
