@@ -20,13 +20,16 @@ export default function DropDM({setSel}) {
     setSelectedKeys(new Set(selKeys));
     setSel(selKeys);
   }
-
+  function handleDropdownClick(event) {
+    event.stopPropagation();
+  }
   return (
-    <Dropdown>
+    <Dropdown onClick={handleDropdownClick}>
       <div className="flex flex-row justify-center text-white">
       <h3 className="text-3xl mr-5 p-3"> Categories: </h3>
-      <DropdownTrigger>
+      <DropdownTrigger onClick={handleDropdownClick}>
         <Button 
+        onClick={handleDropdownClick}
         variant="bordered" 
           className="bg-teal-600 hover:bg-teal-700 text-3xl p-3 rounded my-4 capitalize"
         >
@@ -36,6 +39,7 @@ export default function DropDM({setSel}) {
       </div>
       <DropdownMenu 
         aria-label="Single selection example"
+        onClick={handleDropdownClick}  
         variant="flat"
         disallowEmptySelection
         selectionMode="single"
@@ -50,4 +54,4 @@ export default function DropDM({setSel}) {
       </DropdownMenu>
     </Dropdown>
   );
-}
+} 
