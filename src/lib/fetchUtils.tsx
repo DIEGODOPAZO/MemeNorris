@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { supabase } from "./supabase";
 
 export async function getCategories() {
-  return callApi("https://api.chucknorris.io/jokes/categories", false);
+  return callApi("/api/jokes/categories", false);
 }
 
 export async function callApi(url: string, isJoke: boolean) {
@@ -41,9 +41,9 @@ export async function getJoke(categorie: string) {
   var url = "";
   const cat = Array.from(categorie);
   if (cat[0] === "All" || cat[0] === "A") {
-    url = "https://api.chucknorris.io/jokes/random";
+    url = "/api/jokes/random";
   } else {
-    url = `https://api.chucknorris.io/jokes/random?category=${cat[0]}`;
+    url = `/api/jokes/random?category=${cat[0]}`;
   }
 
   return callApi(url, true);
